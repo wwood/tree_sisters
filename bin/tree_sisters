@@ -5,7 +5,6 @@ from skbio.tree import TreeNode
 import os
 import sys
 import argparse
-import tree2tax
 
 try:
     import tree_sisters.tree_annotator
@@ -13,7 +12,7 @@ except ImportError:
     sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
 from tree_sisters.tree_annotator import TreeAnnotator
 
-parser = argparse.ArgumentParser(description='''--- tree_sisters %s --- annotate leaves on a phylogenetic tree by printing out parent and sister clades''' % tree2tax.__version__)
+parser = argparse.ArgumentParser(description='''--- tree_sisters %s --- annotate leaves on a phylogenetic tree by printing out parent and sister clades''' % tree_sisters.__version__)
 parser.add_argument('-t', '--tree', help='annotated newick format tree file', required=True)
 parser.add_argument('--debug', help='output debug information', action="store_true")
 
@@ -35,14 +34,14 @@ leaves_to_annotate = tree.tips() #an iterator
 # for each Leaf
 annotator = TreeAnnotator()
 count = 0
-print(tree.ascii_art())
+#print(tree.ascii_art())
 for leaf in leaves_to_annotate:
     # determine its parent by ascending the tree until an annotated node or the root is reached
     parent = annotator.find_named_parent(tree, leaf)
     parent_name = ''
     if parent:
         parent_name = parent.name
-    
+
     sisters = annotator.find_sisters(tree, leaf)
     print "\t".join([leaf.name,
                      annotator.full_taxonomy(tree, leaf),
