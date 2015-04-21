@@ -11,8 +11,19 @@ tree_sisters can be installed by unzipping the source code in one directory and 
 
 You can also install it directly from the Python Package Index with this command: ::
 
-    sudo pip tree_sisters install
+    sudo pip install tree_sisters
 
+Usage
+-----
+
+    tree_sisters -t a.tree >lineages.csv
+    
+This will print out, for each leaf, the leaf ID, the taxonomy containing that leaf, and lineage(s) that 
+the leaf is sister to.
+
+To print out a subset of leaves in a newline separated file,
+
+    tree_sisters -t a.tree -l leaves_list.txt >lineages.csv
 
 Licence
 --------
